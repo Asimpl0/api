@@ -25,7 +25,7 @@ public class LoginDao{
         String sql = "SELECT PASSWD FROM `login` WHERE UID= '" + uid +"'" +";";
         System.out.println(sql);
         String uPasswd = jdbcTemplate.queryForObject(sql, String.class);
-        System.out.println(uPasswd);
+        //System.out.println(uPasswd);
         if (uPasswd == null)
             return false;
         return passwd.equals(uPasswd);

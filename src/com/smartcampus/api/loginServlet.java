@@ -34,10 +34,10 @@ public class loginServlet extends HttpServlet {
             response.getWriter().print("success");
         else
             response.getWriter().print("fail");
-        Cookie coo = new Cookie(uid, passwd);//创建一个键值对的cookie对象
-        coo.setMaxAge(60 * 60 * 24 * 7);//设置cookie的生命周期
-        response.addCookie(coo);//添加到response中
-        System.out.println(coo);
+        Cookie cookie = new Cookie(uid, passwd);//创建一个键值对的cookie对象
+        System.out.println(cookie.getName());
+        response.addCookie(cookie);//添加到response中
+        System.out.println(cookie);
     }
 
     @Override
