@@ -8,15 +8,11 @@ import org.springframework.stereotype.Repository;
 import javax.swing.plaf.PanelUI;
 import java.util.List;
 
-@Repository
-public class LoginDao extends AbstractDao {
+public class LoginDao{
 
     private JdbcTemplate jdbcTemplate;
 
-    public LoginDao(JdbcTemplate jdbcTemplate, JdbcTemplate jdbcTemplate1) {
-        super(jdbcTemplate);
-        this.jdbcTemplate = jdbcTemplate1;
-    }
+
 
     public LoginDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;

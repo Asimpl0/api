@@ -23,6 +23,7 @@
           <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/spring-jdbc-5.3.9.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/spring-orm-5.3.9.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/spring-tx-5.3.9.jar" />
+          <element id="library" level="project" name="lib" />
         </element>
       </element>
     </root>
