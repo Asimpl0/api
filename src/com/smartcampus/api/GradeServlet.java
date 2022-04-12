@@ -1,6 +1,8 @@
 package com.smartcampus.api;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.smartcampus.dao.Grade;
 import com.smartcampus.dao.GradeDao;
 import com.smartcampus.dao.LoginDao;
 import org.springframework.context.ApplicationContext;
@@ -11,6 +13,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "GradeServlet", value = "/grade")
 public class GradeServlet extends HttpServlet {
@@ -35,10 +38,9 @@ public class GradeServlet extends HttpServlet {
         int year =Integer.valueOf(request.getParameter("year"));
         int semester = Integer.valueOf(request.getParameter("semester"));
         System.out.println(sid + " " + year + " " + semester);
-        gradeDao.getGrade(sid, year,semester);
-//        JSONObject o = new JSONObject();
-//
-//        response.getWriter().println(o.toString());
+        List<Grade> list = gradeDao.getGrade(sid, year,semester);
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().println(JSON.toJSON(list).toString());
     }
 
     @Override
