@@ -31,7 +31,7 @@ public class NumberDao {
     public List<Number> getNumber(String dname) {
         String sql;
         if ("all".equals(dname))
-            sql = sql = "SELECT * FROM department\n;";
+            sql =  "SELECT * FROM department\n;";
         else
             sql = "SELECT * FROM department\n" +
                     "WHERE Dname LIKE '%" + dname + "%';";
