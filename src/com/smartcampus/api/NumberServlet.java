@@ -14,10 +14,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 class Numbers {
     public String head;
@@ -66,7 +63,12 @@ public class NumberServlet extends HttpServlet {
                 list.add(new Numbers(head, number));
 
         }
-
+        Collections.sort(list, new Comparator<Numbers>() {
+            @Override
+            public int compare(Numbers o1, Numbers o2) {
+                return o1.head.compareTo(o2.head);
+            }
+        });
         response.setCharacterEncoding("UTF-8");
         response.getWriter().println(JSON.toJSON(list).toString());
     }
