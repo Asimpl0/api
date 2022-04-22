@@ -1,11 +1,9 @@
 package com.smartcampus.api;
 
-import com.smartcampus.dao.LoginDao;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.smartcampus.dao.Login.LoginDao;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.xml.Jdbc4SqlXmlHandler;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

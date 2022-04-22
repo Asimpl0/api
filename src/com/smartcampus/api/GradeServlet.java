@@ -1,10 +1,8 @@
 package com.smartcampus.api;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.smartcampus.dao.Grade;
-import com.smartcampus.dao.GradeDao;
-import com.smartcampus.dao.LoginDao;
+import com.smartcampus.dao.Grade.Grade;
+import com.smartcampus.dao.Grade.GradeDao;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;

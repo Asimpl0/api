@@ -2,10 +2,8 @@ package com.smartcampus.api;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.smartcampus.dao.CourseDao;
-import com.smartcampus.dao.Mainten;
-import com.smartcampus.dao.MaintenDao;
-import com.sun.tools.jconsole.JConsoleContext;
+import com.smartcampus.dao.Mainten.Mainten;
+import com.smartcampus.dao.Mainten.MaintenDao;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;

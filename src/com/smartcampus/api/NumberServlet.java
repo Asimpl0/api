@@ -1,9 +1,8 @@
 package com.smartcampus.api;
 
 import com.alibaba.fastjson.JSON;
-import com.smartcampus.dao.LoginDao;
-import com.smartcampus.dao.Number;
-import com.smartcampus.dao.NumberDao;
+import com.smartcampus.dao.Number.Number;
+import com.smartcampus.dao.Number.NumberDao;
 
 import com.smartcampus.utils.PinYin;
 import org.springframework.context.ApplicationContext;
