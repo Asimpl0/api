@@ -85,7 +85,7 @@ public class BookDao {
         jdbcTemplate.update(sql1, bid, sid, days);
     }
     public List getMybook(String sid){
-        String sql = "SELECT boid, bname, bsdate, bedate, brate  FROM borrow, book " +
+        String sql = "SELECT boid, bname, bsdate, bedate, IFNULL(brate,-1)AS brate FROM borrow, book " +
                 "WHERE borrow.sid = '"+ sid +"' AND borrow.bid = book.bid";
         System.out.println(sql);
         List<Mybook> list = jdbcTemplate.query(sql,new MyBookMapper());
