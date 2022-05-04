@@ -1,6 +1,7 @@
 package com.smartcampus.dao.Book;
 
 import com.smartcampus.utils.Pearson;
+import com.smartcampus.utils.Similarity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -101,9 +102,11 @@ public class BookRecommend {
         List<Double> marks = new ArrayList<>();
         //将book和borrow通过左连接连接起来，即可获得所有书籍的评分，对于不存在借阅记录的书籍，将结果设置为0
         //得到的结果按bid升序排列，即为该用户的所有评分，同books顺序一致
-        String sql = "SELECT IFNULL(brate,0) AS brate FROM book LEFT JOIN borrow\n" +
+        //如果用户对某一图书存在多次评分，取最大值
+        String sql = "SELECT MAX(IFNULL(brate,0)) AS brate FROM book LEFT JOIN borrow\n" +
                 "ON book.bid = borrow.bid\n" +
                 "AND borrow.sid = ? \n" +
+                "GROUP BY book.bid\n "+
                 "ORDER BY book.bid ASC";
         marks = jdbcTemplate.query(sql, new RowMapper<Double>() {
             @Override
@@ -190,12 +193,14 @@ public class BookRecommend {
         List<Double> marks = new ArrayList<>();
         //将book和borrow通过左连接连接起来，即可获得所有书籍的评分，对于不存在借阅记录的书籍，将结果设置为0
         //得到的结果按bid升序排列，即为该用户的所有评分，同books顺序一致
+        //如果一本书被用户多次评分，取最大值
         String sql = "SELECT\n" +
-                "\tIFNULL( brate, 0 ) AS brate \n" +
+                "\tMAX(IFNULL( brate, 0 )) AS brate \n" +
                 "FROM\n" +
                 "\tstudent\n" +
                 "\tLEFT JOIN borrow ON student.sid = borrow.sid \n" +
                 "\tAND borrow.bid = ? \n" +
+                "GROUP BY student.sid\n "+
                 "ORDER BY\n" +
                 "\tstudent.sid ASC";
         marks = jdbcTemplate.query(sql, new RowMapper<Double>() {

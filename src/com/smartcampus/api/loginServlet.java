@@ -40,6 +40,15 @@ public class loginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        Cookie[] cookies = request.getCookies();
+        String sid = null;
+        //从Cookie中获得学号
+        for (Cookie cookie : cookies) {
+            sid = cookie.getName();
+        }
+        String nickName = request.getParameter("nickName");
+        String avatarUrl = request.getParameter("avatarUrl");
+        loginDao.update(sid,nickName,avatarUrl);
+        response.getWriter().println("success");
     }
 }
