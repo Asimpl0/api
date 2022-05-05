@@ -15,6 +15,22 @@ public class PostInfo {
     public int cnums;
     public int lnums;
     public int conums;
+
+    public void setIsmark(int ismark) {
+        this.ismark = ismark;
+    }
+
+    public void setMark(int mark) {
+        this.mark = String.valueOf(mark/2.0);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int ismark;
+    public String mark;
+    public String name;
     public void setPdetail(String pdetail) {
         this.pdetail = pdetail;
     }

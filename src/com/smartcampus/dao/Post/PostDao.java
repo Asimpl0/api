@@ -3,6 +3,7 @@ package com.smartcampus.dao.Post;
 import com.smartcampus.dao.Activity.ActivityDao;
 import com.smartcampus.dao.Book.BookDao;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.object.SqlCall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,22 +48,38 @@ public class PostDao {
 
     public void postRate(String sid, String post, String blockid, String itemid, String rate){
         System.out.println(blockid);
+        String sql2 = null;
         if("1".equals(blockid)){
             //如果为图书评价，将图书评分加入借书记录表
             BookDao bookDao = new BookDao(jdbcTemplate);
             bookDao.RateBook(itemid,rate);
             System.out.println("加入借书记录");
+            //获得图书名称
+            sql2 = "SELECT bname AS name FROM borrow , book\n" +
+                    "WHERE borrow.bid = book.bid AND borrow.boid = ";
         }
         if("2".equals(blockid)){
             //如果为活动评价，将活动评分加入活动记录
             ActivityDao activityDao = new ActivityDao(jdbcTemplate);
             activityDao.rateActivity(itemid, rate);
             System.out.println("加入活动记录");
+            sql2 = "SELECT aname AS name FROM engagement,activity\n" +
+                    "WHERE engagement.aid = activity.aid AND engagement.eid = ";
         }
-        String sql = "INSERT INTO post\n" +
-                "(uid,pdetail,ptag, ismark,mark,mid)\n" +
-                "VALUES(?,?,?,?,?,?)";
-        System.out.println(itemid);
-        jdbcTemplate.update(sql, sid, post, blockid,"1",rate,itemid);
+        if ("3".equals(blockid)){
+            sql2 = "SELECT Sename AS name FROM selective\n" +
+                    "WHERE Seid = ";
+        }
+        if ("4".equals(blockid)){
+            sql2 = "SELECT Caname AS name FROM `canteen`\n" +
+                    "WHERE Caid = ";
+        }
+        sql2 += itemid;
+        String name = jdbcTemplate.queryForObject(sql2,String.class);
+        String sql1 = "INSERT INTO post\n" +
+                "(uid,pdetail,ptag, ismark,mark,mid,name)\n" +
+                "VALUES(?,?,?,?,?,?,?)";
+        System.out.println(name);
+        jdbcTemplate.update(sql1, sid, post, blockid,"1",rate,itemid,name);
     }
 }

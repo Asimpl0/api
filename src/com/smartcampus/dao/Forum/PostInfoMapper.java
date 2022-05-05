@@ -18,6 +18,9 @@ public class PostInfoMapper implements RowMapper {
         postInfo.setConums(resultSet.getInt("conums"));
         postInfo.setPdetail(resultSet.getString("pdetail"));
         postInfo.setPid(resultSet.getInt("pid"));
+        postInfo.setIsmark(resultSet.getInt("ismark"));
+        postInfo.setMark(resultSet.getInt("mark"));
+        postInfo.setName(resultSet.getString("name"));
         return postInfo;
     }
 }

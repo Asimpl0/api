@@ -33,11 +33,56 @@ public class ForumServlet extends HttpServlet {
         for (Cookie cookie : cookies) {
             sid = cookie.getName();
         }
-        String block = request.getParameter("block");
-        String sort = request.getParameter("sort");
-        List<PostInfo> list = forumDao.getPost(block,sort);
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().println(JSON.toJSON(list).toString());
+        String funct = request.getParameter("funct");
+        switch (funct){
+            case "0":{
+                //获得所有帖子
+                String block = request.getParameter("block");
+                String sort = request.getParameter("sort");
+                String add = request.getParameter("add");
+                String search = request.getParameter("search");
+                if (search.isEmpty())
+                    search = "";
+                List<PostInfo> list = forumDao.getPost(block,sort,add,sid,search);
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().println(JSON.toJSON(list).toString());
+                break;
+            }
+            case "1":{
+                //对帖子进行点赞
+                String pid = request.getParameter("pid");
+                String rate = request.getParameter("do");
+                forumDao.doLike(pid,rate);
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().println("success");
+                break;
+            }
+            case "2":{
+                //对帖子进行收藏
+                String pid = request.getParameter("pid");
+                String exe = request.getParameter("do");
+                forumDao.doCollect(sid,pid,exe);
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().println("success");
+                break;
+            }
+            case "3":{
+                String block = request.getParameter("block");
+                String sort = request.getParameter("sort");
+                System.out.println(block);
+                List<String> list = forumDao.getRank(block,sort);
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().println(JSON.toJSON(list).toString());
+                break;
+            }
+            case "4":{
+                //获得点赞数
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().println(JSON.toJSON(forumDao.getLikes(sid)).toString());
+                break;
+            }
+        }
+
     }
 
     @Override

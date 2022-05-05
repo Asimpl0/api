@@ -85,7 +85,7 @@ public class BookRecommend {
                 }
             }
         }
-//        for (UserMark userMark : queue){
+//        for (Similarity userMark : queue){
 //            System.out.println(userMark.name + " " + userMark.similarity);
 //        }
         //5.开始高相似度用户借过的书，并将当前用户借过的过滤
@@ -93,7 +93,7 @@ public class BookRecommend {
                 "sid IN (?,?,?) AND brate>=5 AND borrow.bid NOT IN (\n" +
                 "SELECT bid FROM borrow WHERE sid= ?) ";
         List<BookInfo> recommendList = jdbcTemplate.query(sql3, new BookInfoMapper(), queue.poll().name,queue.poll().name, queue.poll().name, sid);
-        //System.out.println(recommendList);
+        System.out.println(recommendList);
         return recommendList;
     }
 
