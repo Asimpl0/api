@@ -96,35 +96,50 @@ public class ForumDao {
         if ("5".equals(block)) {
             //食堂高分排行
             if ("0".equals(sort))
-                sql = "SELECT name, SUM(mark) AS sums FROM `post`\n" +
+                sql = "SELECT name, SUM(mark)/COUNT(*) AS num FROM `post`\n" +
                         "WHERE ptag = 4 \n" +
                         "GROUP BY name\n" +
-                        "ORDER BY sums DESC\n" +
+                        "ORDER BY num DESC\n" +
                         "LIMIT 3";
             else
                 //食堂热度排行，根据发帖次数
-                sql = "SELECT name, COUNT(*) AS sums FROM `post`\n" +
+                sql = "SELECT name, COUNT(*) AS num FROM `post`\n" +
                         "WHERE ptag = 4 \n" +
                         "GROUP BY name\n" +
-                        "ORDER BY sums DESC\n" +
+                        "ORDER BY num DESC\n" +
                         "LIMIT 3";
         }
         if ("4".equals(block)){
             //选修课高分排行
             if ("0".equals(sort))
-                sql = "SELECT name, SUM(mark) AS sums FROM `post`\n" +
+                sql = "SELECT name, SUM(mark)/COUNT(*) AS num FROM `post`\n" +
                         "WHERE ptag = 3 \n" +
                         "GROUP BY name\n" +
-                        "ORDER BY sums DESC\n" +
+                        "ORDER BY num DESC\n" +
                         "LIMIT 3";
             else
                 //选修课热度排行，根据发帖次数
-                sql = "SELECT name, COUNT(*) AS sums FROM `post`\n" +
+                sql = "SELECT name, COUNT(*) AS num FROM `post`\n" +
                         "WHERE ptag = 3 \n" +
                         "GROUP BY name\n" +
-                        "ORDER BY sums DESC\n" +
+                        "ORDER BY num DESC\n" +
                         "LIMIT 3";
         }
+        System.out.println(sql);
+        List<RankInfo> list = jdbcTemplate.query(sql, new RankInfoMapper());
+        return list;
+    }
+
+    public List getAll(String block){
+        String sql = null;
+        if ("4".equals(block)){
+            //为选修课
+            sql = "SELECT Sename AS name FROM `selective`\n" +
+                    "ORDER BY Sename";
+        }
+        if ("5".equals(block))
+            sql = "SELECT Caname AS name FROM `canteen`\n" +
+                    "ORDER BY Caname";
         List<String> list = jdbcTemplate.query(sql, new RowMapper<String>() {
             @Override
             public String mapRow(ResultSet resultSet, int i) throws SQLException {

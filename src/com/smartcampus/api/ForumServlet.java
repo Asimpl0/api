@@ -67,6 +67,7 @@ public class ForumServlet extends HttpServlet {
                 break;
             }
             case "3":{
+                //获得排行
                 String block = request.getParameter("block");
                 String sort = request.getParameter("sort");
                 System.out.println(block);
@@ -79,6 +80,15 @@ public class ForumServlet extends HttpServlet {
                 //获得点赞数
                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().println(JSON.toJSON(forumDao.getLikes(sid)).toString());
+                break;
+            }
+            case "5":{
+                //获得所有食堂或者选修课
+                String block = request.getParameter("block");
+                System.out.println(block);
+                List<String> list = forumDao.getAll(block);
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().println(JSON.toJSON(list).toString());
                 break;
             }
         }

@@ -39,11 +39,11 @@ public class PostDao {
         return list;
     }
 
-    public void postNormal(String uid, String post) {
+    public void postNormal(String uid, String post, int blockid) {
         String sql = "INSERT INTO post\n" +
                 "(uid,pdetail,ptag)\n" +
                 "VALUES(?,?,?)";
-        jdbcTemplate.update(sql, uid, post, "0");
+        jdbcTemplate.update(sql, uid, post, blockid);
     }
 
     public void postRate(String sid, String post, String blockid, String itemid, String rate){
