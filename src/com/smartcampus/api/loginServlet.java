@@ -1,6 +1,9 @@
 package com.smartcampus.api;
 
+import com.alibaba.fastjson.JSON;
 import com.smartcampus.dao.Login.LoginDao;
+import com.smartcampus.utils.Rsa;
+import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,6 +12,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.security.KeyPair;
+import java.util.Base64;
 
 @WebServlet(name = "loginServlet", value = "/login")
 public class loginServlet extends HttpServlet {
@@ -24,10 +29,25 @@ public class loginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         //获得用户名
-        String uid = request.getParameter("uid");
+        String Uid = request.getParameter("uid");
         //获得密码
-        String passwd = request.getParameter("passwd");
+        String Passwd = request.getParameter("passwd");
+//        System.out.println(Uid);
+//        System.out.println(Passwd);
+        String uid = null;
+        String passwd = null;
+        try {
+            uid = Rsa.decrypt(Uid, Rsa.getPrivateKey(Rsa.privateKey));
+            passwd = Rsa.decrypt(Passwd, Rsa.getPrivateKey(Rsa.privateKey));
+//            System.out.println(uid);
+//            System.out.println(passwd);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(uid);
+        System.out.println(passwd);
         if (loginDao.check(uid, passwd))
             response.getWriter().print("success");
         else
@@ -36,6 +56,8 @@ public class loginServlet extends HttpServlet {
         System.out.println(cookie.getName());
         response.addCookie(cookie);//添加到response中
         System.out.println(cookie);
+
+
     }
 
     @Override
@@ -48,7 +70,7 @@ public class loginServlet extends HttpServlet {
         }
         String nickName = request.getParameter("nickName");
         String avatarUrl = request.getParameter("avatarUrl");
-        loginDao.update(sid,nickName,avatarUrl);
+        loginDao.update(sid, nickName, avatarUrl);
         response.getWriter().println("success");
     }
 }

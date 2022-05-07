@@ -88,6 +88,14 @@ public class ActivityServlet extends HttpServlet {
                 response.getWriter().println(JSON.toJSON(list).toString());
                 break;
             }
+            case "6": {
+                //获得当前活动类似活动
+                String aid = request.getParameter("aid");
+                List<ActivityInfo> list = activityRecommendDao.recommendbasedTheme(aid);
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().println(JSON.toJSON(list).toString());
+                break;
+            }
         }
     }
 

@@ -52,7 +52,9 @@ public class PostServlet extends HttpServlet {
         System.out.println(post);
         switch (type){
             case "0" : {
-                postDao.postNormal(sid,post);
+                int blockid = Integer.valueOf(request.getParameter("blockid")) ;
+                System.out.println(blockid);
+                postDao.postNormal(sid,post,blockid-1);
                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().println("success");
                 break;

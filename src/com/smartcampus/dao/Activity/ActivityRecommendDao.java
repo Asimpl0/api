@@ -76,7 +76,7 @@ public class ActivityRecommendDao {
         }
         //5.获得高相似度的用户参与过的活动类型
         String sql2 = "SELECT * FROM activity\n" +
-                "WHERE  atheme IN (\n" +
+                "WHERE  abtime > CURRENT_DATE AND  atheme IN (\n" +
                 "SELECT atheme FROM engagement, activity\n" +
                 "WHERE engagement.aid = activity.aid AND engagement.erate >= 5 AND engagement.sid IN (?,?,?)\n" +
                 ")\n" +
@@ -111,5 +111,28 @@ public class ActivityRecommendDao {
         //System.out.println(marks);
         return marks;
     }
+
+    /**
+     * 基于物品的协同过滤算法，考虑到活动具有时效性，当前的活动，可能并没有人参与过并打分，因此并不适用
+     *
+     * @param sid
+     * @return
+     */
+
+    /**
+     * 采用根据当前活动的类型，推荐同类型的活动
+     * @param aid
+     * @return
+     */
+    public List<ActivityInfo> recommendbasedTheme(String aid) {
+        String sql = "SELECT * FROM `activity`\n" +
+                "WHERE abtime > CURRENT_DATE AND atheme = (\n" +
+                "SELECT atheme FROM activity\n" +
+                "WHERE  aid = ?\n" +
+                ") LIMIT 3";
+        List<ActivityInfo> list = jdbcTemplate.query(sql,new ActivityInfoMapper(), aid);
+        return list;
+    }
+
 
 }

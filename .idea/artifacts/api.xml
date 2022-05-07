@@ -3,27 +3,13 @@
     <output-path>$PROJECT_DIR$/out/artifacts/api</output-path>
     <root id="archive" name="api.war">
       <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="commons.codec" />
+          <element id="library" level="project" name="sun.misc.BASE64Decoder" />
+          <element id="library" level="project" name="lib" />
+        </element>
         <element id="directory" name="classes">
           <element id="module-output" name="api" />
-        </element>
-        <element id="directory" name="lib">
-          <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/com.springsource.net.sf.cglib-2.2.0.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/com.springsource.org.aopalliance-1.0.0.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/commons-logging-1.1.1.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/druid-1.1.10.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/mysql-connector-java-8.0.22.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/../../Java/apache-tomcat-8.5.77/lib/servlet-api.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/spring-aop-5.3.9.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/spring-aspects-5.3.9.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/spring-beans-5.3.9.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/spring-context-5.3.9.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/spring-core-5.3.9.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/spring-expression-5.3.9.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/spring-jdbc-5.3.9.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/spring-orm-5.3.9.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/../DBinfo-master/lib/spring-tx-5.3.9.jar" />
-          <element id="library" level="project" name="lib" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="api/web/Web" />
