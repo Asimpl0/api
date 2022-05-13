@@ -46,8 +46,8 @@ public class loginServlet extends HttpServlet {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        System.out.println(uid);
-        System.out.println(passwd);
+//        System.out.println(uid);
+//        System.out.println(passwd);
         if (loginDao.check(uid, passwd))
             response.getWriter().print("success");
         else
